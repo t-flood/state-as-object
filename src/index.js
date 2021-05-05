@@ -1,17 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const MultiCounter = () => {
+  const [counts, setCounts] = useState({
+    countA: 0,
+    countB: 0,
+  });
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const incA = () =>
+    setCounts((counts) => ({
+      ...counts,
+      countA: counts.countA + 1,
+    }));
+
+  const incB = () =>
+    setCounts((counts) => ({
+      ...counts,
+      countB: counts.countB + 1,
+    }));
+
+  const badIncA = () =>
+    setCounts({
+      countA: counts.countA + 1,
+    });
+
+  return (
+    <>
+      <div>A: {counts.countA}</div>
+      <div>B: {counts.countB}</div>
+      <button onClick={incA}>Increment A</button>
+      <button onClick={incB}>Increment B</button>
+      <button onClick={badIncA}>Increment a badly</button>
+    </>
+  );
+};
+
+ReactDOM.render(<MultiCounter />, document.querySelector("#root"));
